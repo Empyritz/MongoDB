@@ -8,11 +8,9 @@ function addUser(user){
 function getUser(name){
   let filter = {}
   if(name !== null) {
-    filter = { name: name}
+    filter = { name: name }
   }
-  const user = Model.find(filter)
-  return user
-
+  return Model.find(filter)
 }
 
 module.exports = {

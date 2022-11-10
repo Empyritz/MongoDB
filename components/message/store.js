@@ -7,14 +7,25 @@ function addMessage(message) {
   myMessage.save()
 }
 
-async function getMessages(filterUser) {
-  let filter = {}
+function getMessages(filterUser, filterChat) {
+  return new Promise((resolve, reject) => {
+    let filterObject = {}
   if(filterUser !== null) {
-    filter = { user: filterUser }
+    filterObject = { user: filterUser }
+  }else if(filterChat !== null){
+    filterObject = { chat: filterChat }
   }
 
-  const messages = await Model.find(filter)
-  return messages
+  Model.find(filterObject)
+    .populate('user')
+    .exec((error, populated) => {
+      if(error) {
+        reject(error)
+        return false
+      }
+      resolve(populated)
+    })
+  })
 }
 
 async function updateText(id, message) {

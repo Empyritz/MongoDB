@@ -11,9 +11,7 @@ function addUser(name) {
 }
 
 function getUser(name) {
-  return new Promise((resolve, reject) => {
-    resolve(store.get(name))
-  }) 
+  return store.get(name);
 }
 
 
